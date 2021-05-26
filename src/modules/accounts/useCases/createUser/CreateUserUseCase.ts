@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
 import { hash } from "bcryptjs"
 
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { AppError } from "../../../../errors/AppError";
+import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 class CreateUserUseCase {
@@ -23,11 +23,11 @@ class CreateUserUseCase {
 
     const passwordHash = await hash(password, 8);
 
-    await this.usersRepository.create({ 
-      name, 
-      password: passwordHash, 
-      email, 
-      driver_license 
+    await this.usersRepository.create({
+      name,
+      password: passwordHash,
+      email,
+      driver_license
     });
   }
 }

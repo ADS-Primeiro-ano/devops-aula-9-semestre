@@ -2,7 +2,7 @@ import fs from "fs";
 import csvParse from "csv-parse";
 import { inject, injectable } from "tsyringe";
 
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 
 interface IImportCategory {
   name: string;
@@ -10,7 +10,7 @@ interface IImportCategory {
 }
 
 interface IRequest {
-  file: Express.Multer.File;  
+  file: Express.Multer.File;
 }
 
 @injectable()
@@ -35,29 +35,29 @@ class ImportCategoryUseCase {
         categories.push({
           name,
           description
-        })    
+        })
       })
       .on("end", () => {
         fs.promises.unlink(file.path);
         resolve(categories);
-      })   
+      })
       .on("error", (err) => {
         reject(err);
-      });    
+      });
     });
   }
 
-  async execute({ file }: IRequest): Promise<void> {    
-    const categories = await this.loadCategories(file); 
+  async execute({ file }: IRequest): Promise<void> {
+    const categories = await this.loadCategories(file);
 
     categories.map(async category => {
       const {name, description} = category;
-      
+
       const existsCategory = await this.categoriesRepository.findByName(name);
-    
+
       if (!existsCategory) {
         this.categoriesRepository.create({ name, description });
-      }      
+      }
     });
   }
 }
