@@ -37,7 +37,7 @@ describe("List Categories", () => {
         password: "admin",
       });
 
-    const { token } = responseToken.body;
+    const { refresh_token } = responseToken.body;
 
     const response = await request(app)
       .post("/categories")
@@ -46,7 +46,7 @@ describe("List Categories", () => {
         description: "Category Supertest",
       })
       .set({
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${refresh_token}`,
       });
 
     expect(response.status).toBe(201);
@@ -59,7 +59,7 @@ describe("List Categories", () => {
         password: "admin",
       });
 
-    const { token } = responseToken.body;
+    const { refresh_token } = responseToken.body;
 
     await request(app)
       .post("/categories")
@@ -68,7 +68,7 @@ describe("List Categories", () => {
         description: "Category Supertest",
       })
       .set({
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${refresh_token}`,
       });
 
     const response = await request(app)
