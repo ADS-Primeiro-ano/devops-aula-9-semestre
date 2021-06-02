@@ -1,3 +1,7 @@
 node_modules
 coverage
 dist
+tmp/*
+.env
+!tmp/.gitkeep
+ormconfig.json
