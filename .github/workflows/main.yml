@@ -41,7 +41,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/app/rentx
+            cd ~/app/devops-aula-9-semestre
             yarn
             yarn typeorm migration:run
             pm2 restart server
