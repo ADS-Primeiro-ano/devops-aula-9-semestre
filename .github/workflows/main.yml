@@ -44,4 +44,4 @@ jobs:
             cd ~/app/rentx
             yarn
             yarn typeorm migration:run
-            pm2 restart rentx_api
+            pm2 restart server
